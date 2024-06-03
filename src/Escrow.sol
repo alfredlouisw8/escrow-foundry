@@ -215,13 +215,10 @@ contract InfluencerEscrow is ChainlinkClient, ConfirmedOwner {
         );
 
         // Set the URL to perform the GET request on
-        req.add(
-            "get",
-            "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=ETH&tsyms=USD"
-        );
+        req.add("get", "https://payfi-influencer.vercel.app/api/engagement");
 
         // Set the path to find the desired data in the API response
-        req.add("path", "RAW,ETH,USD,VOLUME24HOUR");
+        req.add("path", "msg,engagement");
 
         // Multiply the result by 10^18 to remove decimals
         int256 timesAmount = 10 ** 18;
@@ -276,4 +273,8 @@ contract InfluencerEscrow is ChainlinkClient, ConfirmedOwner {
             "Unable to transfer"
         );
     }
+
+    receive() external payable {}
+
+    fallback() external payable {}
 }
